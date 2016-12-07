@@ -6,6 +6,7 @@
 # Open Questions and TODOs: 
 # - re-work adress definition -> more open definition of address names?
 # - re-work times, maybe use https://www.w3.org/TR/xmlschema11-2/ for  duration · dateTime · time · date
+# --- changes to utc and xmlschema 
 # - re-work knowledge structure: infoData, infoSpace, infoMetaData
 # - review vocabulary structure: semanticNet, stTable,  relations, property, semanticTagId 
 # - clean up the terms: relations: predicates
@@ -38,7 +39,7 @@ message 				 = '{'
                             '"version":' floatNumber ','
                             '"encryptedKey":' text | void ','
                             '"sender":' peerSemanticTag ','
-                            '"receiverTime":' '[' timeSemanticTags ']' ','
+                            '"receiverTimes":' '[' timeSemanticTags ']' ','
 							'"receiverPeers":' '[' peerSemanticTags ']' ','
 							'"receiverLocations":' '[' spatialSemanticTags ']' ','
 							'"receiverTopics":' '[' semanticTags ']' ','
@@ -51,13 +52,14 @@ content                 = '{'
                           '}' signature ;
 signature               = text ;
 insert                  = '"insert":' '[' {knowledges} ']' ;
-expose                  = '"expose":' '[' {interests} ']' ;
+expose                  = '"expose":' '[' {interest} ']' ;
 raw                     = '"raw":' text ;
 logicalSender           = peerSemanticTag ;
 
 ## ASIP-SemanticTag
 
 semanticTagName         = '"name":' name ;
+name                    = text ;
 semanticTagSI           = '"sis":' '[' {subjectIdentifiers} ']' ;
 semanticTag             = '{'
                             semanticTagName ','
@@ -79,7 +81,7 @@ spatialSemanticTags     = spatialSemanticTag { ',' spatialSemanticTag } ;
 timeSemanticTag         = '{'
                             semanticTagName ','
                             semanticTagSI ','
-                            '"times":' '[' {times} ']'
+                            '"time":' '[' {time} ']'
                           '}' ;
 timeSemanticTags        = timeSemanticTag { ',' timeSemanticTag } ;
 subjectIdentifiers      = subjectIdentifier { ',' subjectIdentifier } ;
@@ -106,13 +108,11 @@ ewkt                    = defined at:
                           http://docs.opengeospatial.org/is/12-063r5/12-063r5.html ;
 ## TODO: re-work times  
 times                    = '{'
-                            '"from":' utcTime ',' unixTime ',' sharkTime ','
-                            '"duration":' number
+                            '"format":' xmlschema | utcTime ','
+                            '"duration":' text | '"dateTime":' text | '"time":' text |	'"date":' text
                           '}' ;
 utcTime                 = '"utcTime":' https://www.ietf.org/rfc/rfc3339.txt Part 5.6 ;
-unixTime                = '"unixTime":' number ;
-sharkTime               = '"sharkTime":' void ;
-name                    = text ;
+xmlschema				= '"xmlschema":' https://www.w3.org/TR/xmlschema11-2/ ;
 
 
 ## ASIP-Commands
