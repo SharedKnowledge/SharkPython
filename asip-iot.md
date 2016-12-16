@@ -1,4 +1,5 @@
-﻿# ASIP IoT BNF
+﻿```javascript
+# ASIP IoT BNF
 
 # This document will describe the Backus-Naur form of the newly developed protocol ASIP IoT.
 # This document is using Extended BNF nach ISO/IEC 14977. 
@@ -209,3 +210,4 @@ interest                = '{'
                           '}' ;
 interests               = interest { ',' interest } ;
 
+```
