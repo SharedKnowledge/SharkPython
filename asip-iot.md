@@ -85,6 +85,13 @@ timeSemanticTag         = '{'
                             '"time":' '[' {time} ']'
                           '}' ;
 timeSemanticTags        = timeSemanticTag { ',' timeSemanticTag } ;
+predicateSemanticTag 	= '{'
+                            semanticTagName ','
+                            semanticTagSI ','
+                            '"sourceId":' text 
+                            '"targetId":' text
+                          '}' ;
+predicateSemanticTags   = predicateSemanticTag { ',' predicateSemanticTag } ;
 subjectIdentifiers      = subjectIdentifier { ',' subjectIdentifier } ;
 subjectIdentifier       = uri ;
 uri                     = '"uri":' http://www.w3.org/Addressing/URL/5_URI_BNF.html ;
@@ -148,7 +155,8 @@ infoSpace               = '{'
                             '"sender":' [ peerSemanticTag ]','
                             '"recipients":' [ peerSemanticTags ] ','
                             '"locations":' [ spatialSemanticTags ] ','
-                            '"times":' [ timeSemanticTags ]
+                            '"times":' [ timeSemanticTags ] ','
+			    '"predicates":' [ predicateSemanticTags ] 
                           '}' ;
 
 // TODO: Check Vocabulary
@@ -157,43 +165,53 @@ vocabulary              = '{'
                             typeDim ','
                             peerDim ','
                             locationDim ','
-                            timeDim
+                            timeDim ','
+			    predicateDim		
                           '}' ;
 topicDim                = semanticNet ;
 typeDim                 = semanticNet ;
 peerDim                 = peerSemanticTagNet ;
 locationDim             = spatialSemanticTagNet ;
 timeDim                 = timeSemanticTagNet ;
+predicateDim		= predicateSemanticNet ;
 
 // TODO: Check SemanticNets
 semanticNet             = '{'
                             '"stTable":' '['
                               { semanticTagId ',' semanticTag } ','
-                            '"relations":' '[' {predicate} ']'
+                            '"predicates":' '[' {predicateSemanticTags} | void ']'
                           '}' ;
 peerSemanticNet         = '{'
                             '"stTable":' '['
                               { semanticTagId ',' peerSemanticTag }
                              ']' ','
-                            '"relations":' '[' { predicate} ']'
+                            '"predicates":' '[' {predicateSemanticTags} | void ']'
                           '}' ;
 spatialSemanticNet      = '{'
                             '"stTable":' '['
                               { semanticTagId ',' spatialSemanticTag }
                             ']' ','
-                            '"relations":' '[' {predicate} ']'
+                            '"predicates":' '[' {predicateSemanticTags} | void ']'
                           '}' ;
 timeSemanticNet         = '{'
                             '"stTable":' '['
                               { semanticTagId ',' timeSemanticTag }
                             ']' ','
-                            '"relations":' '[' { predicate} ']'
+                            '"predicates":' '[' {predicateSemanticTags} | void ']'
+                          '}' ;
+predicateSemanticNet    = '{'
+                            '"stTable":' '['
+                              { semanticTagId ',' predicateSemanticTag }
+                            ']' ','
+                            '"predicates":' '[' {predicateSemanticTags} | void ']'
                           '}' ;
 semanticTagId           = '{' '"id":' text '}' ;
-predicate                = '{'
+
+#Geht ein Mix aus ungerichteten und gerichteten Graphen? Falls ja, kann man hier noch weitermachen					  
+association                = '{'
                             '"name":' text
-                            '"sourceId":' text
-                            '"targetId":' text
+                            semanticTagId ','
+                            semanticTagId
                           '}' ;
 
 ### Expose
@@ -206,6 +224,7 @@ interest                = '{'
                             '"recipients":' '[' {peerSemanticTags} | void ']' ','
                             '"locations":' '[' {spatialSemanticTags} | void ']' ','
                             '"times":' '[' {timeSemanticTags} | void ']' ','
+			    '"predicates":' '[' {predicateSemanticTags} | void ']' ','
                             '"direction":' 'IN' | 'OUT' | 'INOUT' | 'NO' '}'
                           '}' ;
 interests               = interest { ',' interest } ;
