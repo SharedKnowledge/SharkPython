@@ -63,12 +63,4 @@ class DHT(Sensor):
 	def add_heat_index(self, value):
 		self.add_value(self.hIndex, value)
 
-	def add (self, topic, value):
-		topic = topic.upper
-		if topic == "TEMPERATURE":
-			self.add_temp(value)
-		elif topic == "HUMIDITY":
-			self.add_humidity(value)
-		elif topic == "HEAT INDEX":
-			self.add_heat_index(value)
 		
