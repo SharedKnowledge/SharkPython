@@ -88,8 +88,8 @@ timeSemanticTags        = timeSemanticTag { ',' timeSemanticTag } ;
 predicateSemanticTag 	= '{'
                             semanticTagName ','
                             semanticTagSI ','
-                            '"sourceId":' text 
-                            '"targetId":' text
+                            '"sourceSI":' text 
+                            '"targetSI":' text
                           '}' ;
 predicateSemanticTags   = predicateSemanticTag { ',' predicateSemanticTag } ;
 subjectIdentifiers      = subjectIdentifier { ',' subjectIdentifier } ;
