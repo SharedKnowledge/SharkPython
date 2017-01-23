@@ -1,3 +1,0 @@
-from SemanticTag import *
-
-#Test
