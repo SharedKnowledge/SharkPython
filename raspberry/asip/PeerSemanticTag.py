@@ -1,16 +1,16 @@
 from SemanticTag import *
 
 class PeerSemanticTag(SemanticTag):
-    addresses = None
-    def __init__(self, name, si, addresses):
+    address = None
+    def __init__(self, name, si, address):
         SemanticTag.__init__(self, name, si)
-        if addresses:
-            self.addresses = addresses
+        if isinstance(address, Address) :
+            self.address = address
         else:
             raise ValueError("A PeerSemanticTag needs at least one address! Otherwise please use a normal SemanticTag.")
 
     def __str__(self):
-        return " [Name]: %s  [Si]: %s  [addresses]: %s" %(self.name, self.si, self.addresses)
+        return " [Name]: %s  [Si]: %s  [address]: %s" %(self.name, self.si, self.address)
 
 
 class Address:
@@ -33,16 +33,17 @@ class Address:
             raise ValueError()
 
     def __str__(self):
-        return " [Address]: %s" %(self.endpoint)
+        return "%s" %(self.endpoint)
 
 
 
 
 def main():
-    tag = PeerSemanticTag("Dustin Feurich", "https://studi.f4.htw-berlin.de/~s0540042/", "s0540042@htw-berlin.de")
-    print("Generated Tag: " + tag.__str__())
     address = Address("mail://s0540042@htw-berlin.de")
     print(address)
+    tag = PeerSemanticTag("Dustin Feurich", "https://studi.f4.htw-berlin.de/~s0540042/", address)
+    print("Generated Tag: " + tag.__str__())
+
 
 
 
