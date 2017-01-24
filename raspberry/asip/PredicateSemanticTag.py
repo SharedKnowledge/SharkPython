@@ -16,7 +16,7 @@ class PredicateSemanticTag(SemanticTag):
 
 def main():
     tag = PredicateSemanticTag("Marriage", "https://en.wikipedia.org/wiki/Marriage", "max.muster@htw-berlin.de", "maxima.muster@htw-berlin.de")
-    print("Generated Tag: " + tag.__str__())
+    print("Generated PredicateTag: " + tag.__str__())
     #tag_invalid = PredicateSemanticTag("Invalid", "www.example.org", None, None)
 
 
