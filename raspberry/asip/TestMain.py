@@ -1,8 +1,15 @@
 from PeerSemanticTag import  *
-from PredicateSemanticTag import *
+from SemanticNet import *
 import unittest
 
 class MyTest(unittest.TestCase):
+
+    address_max = None
+    address_maxima = None
+    peer_tag_max = None
+    peer_tag_maxima = None
+    predicate_tag = None
+
     def test_tags(self):
         address_max = Address("mail://s0123456@htw-berlin.de")
         address_maxima = Address("mail://s0123457@htw-berlin.de")
@@ -23,3 +30,20 @@ class MyTest(unittest.TestCase):
         assert "https://en.wikipedia.org/wiki/Marriage" in predicate_tag.si
         assert predicate_tag.source_si == peer_tag_max.si
         assert  predicate_tag.target_si == peer_tag_maxima.si
+
+    def test_semantic_net(self):
+        tag_id = 0
+        semantic_net = SemanticNet()
+        tag_example = SemanticTag("Test", "www.example.org")
+        semantic_net.add_Tag(tag_example, tag_id)
+        ++tag_id
+        assert semantic_net.st_table[tag_id] == tag_example
+        assert "www.example.org" in semantic_net.st_table[tag_id].si
+
+        tag_example2 = SemanticTag("Test2", "www.example.org/2")
+        predicate_example = PredicateSemanticTag("ExamplePredicate", "https://en.wikipedia.org/wiki/Relation", tag_example.si, tag_example2.si)
+        semantic_net.add_predicate(predicate_example)
+        assert predicate_example in semantic_net.predicates
+
+
+
