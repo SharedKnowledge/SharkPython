@@ -20,7 +20,7 @@ class MyTest(unittest.TestCase):
         semanticNet.add_Tag(accuracy_tag, tag_id)
         semanticNet.add_predicate(relation_tag2)
 
-        vocabulary = Vocaulary(semanticNet, None, None, None, None)
+        vocabulary = Vocabulary(semanticNet, None, None, None, None)
 
         assert vocabulary.topic_dim.st_table[0] == property_tag
         assert vocabulary.topic_dim.st_table[1] == measurement_property_tag

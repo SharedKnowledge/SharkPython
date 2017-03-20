@@ -3,7 +3,7 @@ from PeerSemanticNet import *
 from TimeSemanticNet import *
 from SpatialSemanticNet import *
 
-class Vocaulary:
+class Vocabulary:
     topic_dim = None
     type_dim = None
     peer_dim = None
