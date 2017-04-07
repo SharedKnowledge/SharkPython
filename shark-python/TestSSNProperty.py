@@ -8,7 +8,6 @@ class MyTest(unittest.TestCase):
         property_tag = SemanticTag("Property", "ssn:Poperty")
         measurement_property_tag = SemanticTag("Measurement Property", "ssn:property/MeasurementProperty")
         relation_tag1 = PredicateSemanticTag("is a", "http://www.w3.org/ns/ssn/#is_a", property_tag, measurement_property_tag)
-        #Relationstag evtl. nicht nötig, da "is a" durch URI Hierarchie dargestellt werden kann
         semanticNet = SemanticNet()
         semanticNet.add_Tag(property_tag, tag_id)
         tag_id += 1
