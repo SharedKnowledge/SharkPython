@@ -9,7 +9,7 @@ class SemanticTag(object):
 
 	def __str__(self):
 		return " [Name]: %s  [Si]: %s" %(self.name, self.si)
-#Test
+
 class Topic(SemanticTag):
 	sender = None
 	def __init__(self, name, si, sender=None):
