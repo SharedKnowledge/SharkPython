@@ -110,11 +110,12 @@ ewkt                    = defined at:
 ## TODO: re-work times  
 times                    = '{'
                             '"format":' xmlschema | utcTime ','
-                            '"duration":' text | '"dateTime":' text | '"time":' text |	'"date":' text
+							duration | period 
                           '}' ;
 utcTime                 = '"utcTime":' https://www.ietf.org/rfc/rfc3339.txt Part 5.6 ;
 xmlschema				= '"xmlschema":' https://www.w3.org/TR/xmlschema11-2/ ;
-
+duration 				= '"duration":' text ',' '"startTime":' text ;
+period					= '"period":' text ',' '"interval":' text ;
 
 ## ASIP-Commands
 
