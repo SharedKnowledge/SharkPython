@@ -1,14 +1,23 @@
 class SemanticTag(object):
 	name = None
-	si = None
+	si = []
+	id = None
 	def __init__(self, name, si):
 		if name:
 			self.name = name
-		if si:
+		if type(si) is list:
 			self.si = si
+		else:
+			self.si = [si]
 
 	def __str__(self):
 		return " [Name]: %s  [Si]: %s" %(self.name, self.si)
+
+	def __eq__(self, other):
+		for identifier in self.si:
+			if (identifier in other.si):
+				return True
+		return False
 
 class Topic(SemanticTag):
 	sender = None

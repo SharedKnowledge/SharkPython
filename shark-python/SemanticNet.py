@@ -13,8 +13,9 @@ class SemanticNet:
         else:
             self.predicates = predicates
 
-    def add_Tag(self, semantic_tag, semantic_tag_id):
+    def add_tag(self, semantic_tag, semantic_tag_id):
         if (isinstance(semantic_tag, SemanticTag)):
+            semantic_tag.id = semantic_tag_id
             self.st_table[semantic_tag_id] = semantic_tag
         else:
             raise ValueError("The argument must be an instance of SemanticTag!")

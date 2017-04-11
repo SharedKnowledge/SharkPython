@@ -14,6 +14,9 @@ class PredicateSemanticTag(SemanticTag):
     def __str__(self):
         return " [Name]: %s  [Si]: %s  [source_si]: %s  [target_si] %s" %(self.name, self.si, self.source_si, self.target_si)
 
+    def __eq__(self, other):
+        return (self.source_si == other.source_si and self.target_si == other.target_si and self.name == other.name)
+
 def main():
     tag = PredicateSemanticTag("Marriage", "https://en.wikipedia.org/wiki/Marriage", "max.muster@htw-berlin.de", "maxima.muster@htw-berlin.de")
     print("Generated PredicateTag: " + tag.__str__())
