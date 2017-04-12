@@ -42,6 +42,8 @@ class MyTest(unittest.TestCase):
 
         kb.insert(kb2.knowledge)
 
+        i = 30
+
 
 
 
