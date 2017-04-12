@@ -9,26 +9,35 @@ class KnowledgeBase(object):
         if knowledge:
             self.knowledge = knowledge
 
-    def insert(self, knowledge):
+    def insert(self, knowledge, conflict_resolution = 1):
         if (knowledge.vocabulary is not None):
             if (knowledge.vocabulary.topic_dim is not None):
-                self.process_insert(knowledge.vocabulary.topic_dim, self.knowledge.vocabulary.topic_dim)
+                self.process_insert(knowledge.vocabulary.topic_dim, self.knowledge.vocabulary.topic_dim, conflict_resolution)
             if (knowledge.vocabulary.type_dim is not None):
-                self.process_insert(knowledge.vocabulary.type_dim, self.knowledge.vocabulary.type_dim)
+                self.process_insert(knowledge.vocabulary.type_dim, self.knowledge.vocabulary.type_dim, conflict_resolution)
             if (knowledge.vocabulary.peer_dim is not None):
-                self.process_insert(knowledge.vocabulary.peer_dim, self.knowledge.vocabulary.peer_dim)
+                self.process_insert(knowledge.vocabulary.peer_dim, self.knowledge.vocabulary.peer_dim, conflict_resolution)
             if (knowledge.vocabulary.location_dim is not None):
-                self.process_insert(knowledge.vocabulary.location_dim, self.knowledge.vocabulary.location_dim)
+                self.process_insert(knowledge.vocabulary.location_dim, self.knowledge.vocabulary.location_dim, conflict_resolution)
             if (knowledge.vocabulary.time_dim is not None):
-                self.process_insert(knowledge.vocabulary.time_dim, self.knowledge.vocabulary.time_dim)
+                self.process_insert(knowledge.vocabulary.time_dim, self.knowledge.vocabulary.time_dim, conflict_resolution)
 
-    def process_insert(self, dimension_insert, dimension_kb):
+    def process_insert(self, dimension_insert, dimension_kb, merge_status):
         insert_tags = dimension_insert.st_table.values()
         kb_tags = dimension_kb.st_table.values()
-        new_tags = [x for x in insert_tags if x not in kb_tags] # using overwritten equals method (__eq__) in SemanticTag.py
-        for tag in new_tags:
-            dimension_kb.add_tag(tag, tag.id)
-        new_predicates = [x for x in dimension_insert.predicates if x not in dimension_kb.predicates] # using overwritten equals method (__eq__) in PredicateSemanticTag.py
+        if (merge_status == 0):
+            new_tags = insert_tags
+        elif (merge_status >= 1):
+            new_tags = [x for x in insert_tags if x not in kb_tags]
+        else:
+            new_tags = []
+        if (merge_status <= 1):
+            for tag in new_tags:
+                dimension_kb.add_tag(tag, tag.id)
+        elif (merge_status == 2):
+            for tag in new_tags:
+                dimension_kb.replace_tag(tag, tag.id)
+        new_predicates = [x for x in dimension_insert.predicates if x not in dimension_kb.predicates]
         for predicate in new_predicates:
             self.knowledge.vocabulary.topic_dim.add_predicate(predicate)
 

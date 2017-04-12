@@ -20,9 +20,28 @@ class SemanticNet:
         else:
             raise ValueError("The argument must be an instance of SemanticTag!")
 
+    def remove_tag(self, semantic_tag, semantic_tag_id):
+        if (isinstance(semantic_tag, SemanticTag)):
+            del self.st_table[semantic_tag_id]
+        else:
+            raise ValueError("The argument must be an instance of SemanticTag!")
+
+    def replace_tag(self, semantic_tag, semantic_tag_id):
+        if (isinstance(semantic_tag, SemanticTag)):
+            del self.st_table[semantic_tag_id]
+            self.st_table[semantic_tag_id] = semantic_tag
+        else:
+            raise ValueError("The argument must be an instance of SemanticTag!")
+
     def add_predicate(self, predicate_tag):
         if (isinstance(predicate_tag, PredicateSemanticTag)):
             self.predicates.append(predicate_tag)
+        else:
+            raise ValueError("The argument must be an instance of PredicateSemanticTag!")
+
+    def remove_predicate(self, predicate_tag):
+        if (isinstance(predicate_tag, PredicateSemanticTag)):
+            self.predicates.remove(predicate_tag)
         else:
             raise ValueError("The argument must be an instance of PredicateSemanticTag!")
 
