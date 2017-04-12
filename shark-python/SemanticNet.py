@@ -26,10 +26,13 @@ class SemanticNet:
         else:
             raise ValueError("The argument must be an instance of SemanticTag!")
 
-    def replace_tag(self, semantic_tag, semantic_tag_id):
+    def replace_tag(self, semantic_tag):
         if (isinstance(semantic_tag, SemanticTag)):
-            del self.st_table[semantic_tag_id]
-            self.st_table[semantic_tag_id] = semantic_tag
+            for tag in self.st_table.values():
+                if (semantic_tag == tag):
+                    print(tag.id)
+                    self.remove_tag(tag, tag.id)
+                    self.add_tag(semantic_tag, semantic_tag.id)
         else:
             raise ValueError("The argument must be an instance of SemanticTag!")
 

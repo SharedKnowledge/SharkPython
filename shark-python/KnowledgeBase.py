@@ -9,7 +9,7 @@ class KnowledgeBase(object):
         if knowledge:
             self.knowledge = knowledge
 
-    def insert(self, knowledge, conflict_resolution = 1):
+    def insert(self, knowledge, conflict_resolution = 2):
         if (knowledge.vocabulary is not None):
             if (knowledge.vocabulary.topic_dim is not None):
                 self.process_insert(knowledge.vocabulary.topic_dim, self.knowledge.vocabulary.topic_dim, conflict_resolution)
@@ -31,12 +31,13 @@ class KnowledgeBase(object):
             new_tags = [x for x in insert_tags if x not in kb_tags]
         else:
             new_tags = []
-        if (merge_status <= 1):
-            for tag in new_tags:
-                dimension_kb.add_tag(tag, tag.id)
-        elif (merge_status == 2):
-            for tag in new_tags:
-                dimension_kb.replace_tag(tag, tag.id)
+        for tag in new_tags:
+            dimension_kb.add_tag(tag, tag.id)
+        if (merge_status == 2):
+            known_tags = [x for x in insert_tags if x in kb_tags]
+            for tag in known_tags:
+                dimension_kb.replace_tag(tag)
+
         new_predicates = [x for x in dimension_insert.predicates if x not in dimension_kb.predicates]
         for predicate in new_predicates:
             self.knowledge.vocabulary.topic_dim.add_predicate(predicate)

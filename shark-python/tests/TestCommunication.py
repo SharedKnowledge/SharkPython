@@ -33,7 +33,8 @@ class MyTest(unittest.TestCase):
         semanticNet2 = SemanticNet()
         semanticNet2.add_tag(resolution_tag, tag_id)
         tag_id += 1
-        semanticNet2.add_tag(measurement_property_tag, tag_id)
+        measurement_property_tag2 = SemanticTag("Measurement Property", "ssn:property/MeasurementProperty")
+        semanticNet2.add_tag(measurement_property_tag2, tag_id)
         relation_tag3 = PredicateSemanticTag("is a", "http://www.w3.org/ns/ssn/#is_a", measurement_property_tag, resolution_tag)
         semanticNet2.add_predicate(relation_tag3)
         vocabulary2 = Vocabulary(semanticNet2, None, None, None, None)
