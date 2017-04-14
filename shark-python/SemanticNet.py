@@ -30,11 +30,19 @@ class SemanticNet:
         if (isinstance(semantic_tag, SemanticTag)):
             for tag in self.st_table.values():
                 if (semantic_tag == tag):
-                    print(tag.id)
                     self.remove_tag(tag, tag.id)
                     self.add_tag(semantic_tag, semantic_tag.id)
         else:
             raise ValueError("The argument must be an instance of SemanticTag!")
+
+    def merge_tag(self, semantic_tag):
+        if (isinstance(semantic_tag, SemanticTag)):
+            for tag in self.st_table.values():
+                if (semantic_tag == tag):
+                    tag.si.append(semantic_tag.si)
+        else:
+            raise ValueError("The argument must be an instance of SemanticTag!")
+
 
     def add_predicate(self, predicate_tag):
         if (isinstance(predicate_tag, PredicateSemanticTag)):

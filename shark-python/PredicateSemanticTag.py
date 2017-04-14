@@ -17,10 +17,3 @@ class PredicateSemanticTag(SemanticTag):
     def __eq__(self, other):
         return (self.source_si == other.source_si and self.target_si == other.target_si and self.name == other.name)
 
-def main():
-    tag = PredicateSemanticTag("Marriage", "https://en.wikipedia.org/wiki/Marriage", "max.muster@htw-berlin.de", "maxima.muster@htw-berlin.de")
-    print("Generated PredicateTag: " + tag.__str__())
-    #tag_invalid = PredicateSemanticTag("Invalid", "www.example.org", None, None)
-
-
-if  __name__ =='__main__':main()

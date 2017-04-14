@@ -10,7 +10,9 @@ class Vocabulary:
     location_dim = None
     time_dim = None
 
-    #Todo: Konstruktor sicherer machen
+    def __init__(self):
+        pass
+
     def __init__(self, topic_dim, type_dim, peer_dim, location_dim, time_dim):
         if (isinstance(topic_dim, SemanticNet) or isinstance(type_dim, SemanticNet)
             or isinstance(peer_dim, PeerSemanticNet) or isinstance(location_dim, SpatialSemanticNet)
