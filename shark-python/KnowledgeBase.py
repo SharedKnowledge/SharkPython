@@ -33,7 +33,7 @@ class KnowledgeBase(object):
         else:
             new_tags = []
         for tag in new_tags:
-            dimension_kb.add_tag(tag, tag.id)
+            dimension_kb.add_tag(tag, tag.id + 100)
         if (merge_status == 2):
             known_tags = [x for x in insert_tags if x in kb_tags]
             for tag in known_tags:
