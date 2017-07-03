@@ -1,6 +1,7 @@
 from KnowledgeBase import *
 from Knowledge import *
 import unittest
+import jsonpickle
 
 
 class MyTest(unittest.TestCase):
@@ -28,6 +29,11 @@ class MyTest(unittest.TestCase):
         knowledge = Knowledge(vocabulary, None, None)
         kb = KnowledgeBase(knowledge)
 
+        semanticNetJson = jsonpickle.encode(semanticNet)
+        print(semanticNetJson)
+        semanticNetDecoded = jsonpickle.decode(semanticNetJson)
+
+
         tag_id += 1
         resolution_tag = SemanticTag("Resolution", "ssn:Resolution")
         semanticNet2 = SemanticNet()
@@ -41,7 +47,7 @@ class MyTest(unittest.TestCase):
         knowledge2 = Knowledge(vocabulary2, None, None)
         kb2 = KnowledgeBase(knowledge2)
 
-        kb.insert(kb2.knowledge)
+        #kb.insert(kb2.knowledge)
 
         i = 30
 

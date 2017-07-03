@@ -1,5 +1,6 @@
 import unittest
 import json
+import jsonpickle
 from pymongo import MongoClient
 
 from PeerSemanticTag import Address, PeerSemanticTag
@@ -41,8 +42,10 @@ class TestMongoDB(unittest.TestCase):
         db.semantic_tags.update_one({"name": "example"}, { "$set": {"name": "example_after_update"}})
 
         after_update = db.semantic_tags.find_one({"name": "example_after_update"})
+        property_tag.id = 10
+        property_tag_json = jsonpickle.encode(property_tag)
 
-
+        print(property_tag_json)
 
         i = 19
 
