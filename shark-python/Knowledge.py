@@ -14,8 +14,6 @@ class Knowledge:
         if (isinstance(info_content, InfoContent)):
             self.info_content = info_content
 
-    def __init__(self):
-        pass
 
 
 

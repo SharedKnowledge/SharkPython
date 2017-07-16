@@ -47,7 +47,8 @@ class MyTest(unittest.TestCase):
         knowledge2 = Knowledge(vocabulary2, None, None)
         kb2 = KnowledgeBase(knowledge2)
 
-        #kb.insert(kb2.knowledge)
+        kb.insert(kb2.knowledge)
+
 
         i = 30
 
