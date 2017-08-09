@@ -1,6 +1,7 @@
 import unittest
 import json
 import jsonpickle
+import bson
 from pymongo import MongoClient
 
 from Knowledge import Knowledge
@@ -88,9 +89,13 @@ class TestMongoDB(unittest.TestCase):
         client = MongoClient()
         db = client.local
         collection = db.knowledge_base
-        kb_json = jsonpickle.encode(kb)
-        print("\n" + kb_json + "\n")
-        #collection.insert_one(semanticNet.__dict__)
+        knowledge_json = jsonpickle.encode(knowledge)
+        print("\n" + knowledge_json + "\n")
+        print(type(knowledge_json))
+
+        knowledge_bson = bson.son.SON(json.loads(knowledge_json))
+        print(type(knowledge_bson))
+        collection.insert_one(knowledge_bson)
 
 
 

@@ -66,6 +66,19 @@ class KnowledgeBase(object):
         knowledge.vocabulary = vocabulary
         return knowledge
 
+    def __iter__(self):
+        self.i = 0
+        return self
+
+    def __next__(self):
+        if self.i > 0:
+            raise StopIteration
+        else:
+            self.i += 1
+            return self
+
+
+
 
 
 
