@@ -73,17 +73,17 @@ class TestMongoDB(unittest.TestCase):
         property_tag = SemanticTag("Property", "ssn:Poperty")
         measurement_property_tag = SemanticTag("Measurement Property", "ssn:property/MeasurementProperty")
         relation_tag1 = PredicateSemanticTag("is a", "http://www.w3.org/ns/ssn/#is_a", property_tag, measurement_property_tag)
-        semanticNet = SemanticNet()
-        semanticNet.add_tag(property_tag, tag_id)
+        semantic_net = SemanticNet()
+        semantic_net.add_tag(property_tag, tag_id)
         tag_id += 1
-        semanticNet.add_tag(measurement_property_tag, tag_id)
+        semantic_net.add_tag(measurement_property_tag, tag_id)
         tag_id += 1
-        semanticNet.add_predicate(relation_tag1)
+        semantic_net.add_predicate(relation_tag1)
         accuracy_tag = SemanticTag("Accuracy", "ssn:property/MeasurementProperty/Accuracy")
         relation_tag2 = PredicateSemanticTag("is a", "http://www.w3.org/ns/ssn/#is_a", measurement_property_tag, accuracy_tag)
-        semanticNet.add_tag(accuracy_tag, tag_id)
-        semanticNet.add_predicate(relation_tag2)
-        vocabulary = Vocabulary(semanticNet, None, None, None, None)
+        semantic_net.add_tag(accuracy_tag, tag_id)
+        semantic_net.add_predicate(relation_tag2)
+        vocabulary = Vocabulary(semantic_net, None, None, None, None)
         knowledge = Knowledge(vocabulary, None, None)
         kb = KnowledgeBase(knowledge)
         client = MongoClient()
@@ -95,7 +95,13 @@ class TestMongoDB(unittest.TestCase):
 
         knowledge_bson = bson.son.SON(json.loads(knowledge_json))
         print(type(knowledge_bson))
+
+        semantic_net_json = jsonpickle.encode(semantic_net)
         collection.insert_one(knowledge_bson)
+
+        knowledge_found = collection.find_one(bson.son.SON(json.loads(knowledge_json)))
+
+        print("Knowledge retrieved: " + str(knowledge_found))
 
 
 
