@@ -52,7 +52,7 @@ class KnowledgeBase(object):
         knowledge = Knowledge()
         vocabulary = Vocabulary()
         topic_dimension = SemanticNet()
-        if interest is not None and isinstance(interest, Interest): #Todo: Dies noch für die anderen Dimensionen analog hinzufügen, am besten wie beim insert aufteilen
+        if interest is not None and isinstance(interest, Interest):
             if (interest.topics is not None):
                 tags = [x for x in interest.topics if x in self.knowledge.vocabulary.topic_dim.st_table.values()]
                 for tag in tags:
