@@ -11,6 +11,7 @@ from PredicateSemanticTag import PredicateSemanticTag
 from SemanticNet import SemanticNet
 from SemanticTag import *
 from Vocabulary import Vocabulary
+from MongoHelper import *
 
 
 class TestMongoDB(unittest.TestCase):
@@ -102,6 +103,45 @@ class TestMongoDB(unittest.TestCase):
         knowledge_found = collection.find_one(bson.son.SON(json.loads(knowledge_json)))
 
         print("Knowledge retrieved: " + str(knowledge_found))
+
+
+    def test_mongo_helper(self):
+
+        tag_id = 0
+        property_tag = SemanticTag("Property", "ssn:Poperty")
+        frequency_tag = SemanticTag("Frequency", "ssn:property/Frequency")
+        relation_tag1 = PredicateSemanticTag("is a", "http://www.w3.org/ns/ssn/#is_a", property_tag, frequency_tag)
+        semantic_net = SemanticNet()
+        semantic_net.add_tag(property_tag, tag_id)
+        tag_id += 1
+        semantic_net.add_tag(frequency_tag, tag_id)
+        tag_id += 1
+        semantic_net.add_predicate(relation_tag1)
+        precision_tag = SemanticTag("Accuracy", "ssn:property/MeasurementProperty/Precision")
+        relation_tag2 = PredicateSemanticTag("is a", "http://www.w3.org/ns/ssn/#is_a", frequency_tag, precision_tag)
+        semantic_net.add_tag(precision_tag, tag_id)
+        semantic_net.add_predicate(relation_tag2)
+        vocabulary = Vocabulary(semantic_net, None, None, None, None)
+        knowledge = Knowledge(vocabulary, None, None)
+        kb = KnowledgeBase(knowledge)
+        client = MongoClient()
+        db = client.local
+        collection = db.knowledge_base
+
+        MongoHelper.save_knowledge(knowledge)
+
+
+        knowledge_json = jsonpickle.encode(knowledge)
+
+        knowledge_found = MongoHelper.find_knowledge(bson.son.SON(json.loads(knowledge_json)))
+
+        print("Knowledge retrieved: " + str(knowledge_found))
+
+
+
+
+
+
 
 
 

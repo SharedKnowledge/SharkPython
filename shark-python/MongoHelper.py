@@ -41,3 +41,12 @@ class MongoHelper:
         knowledge_part_json = jsonpickle.encode(knowledge_part)
         knowledge_part_bson = bson.son.SON(json.loads(knowledge_part_json))
         collection.update_one(knowledge_part_bson)
+
+    @staticmethod
+    def save_kb_object(object, collection_name):
+        client = MongoClient()
+        db = client.local
+        collection = db[collection_name]
+        object_json = jsonpickle.encode(object)
+        object_json = bson.son.SON(json.loads(object_json))
+        collection.insert_one(object_json)
