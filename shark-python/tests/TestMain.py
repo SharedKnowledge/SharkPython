@@ -35,7 +35,7 @@ class MyTest(unittest.TestCase):
         tag_id = 0
         semantic_net = SemanticNet()
         tag_example = SemanticTag("Test", "www.example.org")
-        semantic_net.add_Tag(tag_example, tag_id)
+        semantic_net.add_tag(tag_example, tag_id)
         ++tag_id
         assert semantic_net.st_table[tag_id] == tag_example
         assert "www.example.org" in semantic_net.st_table[tag_id].si

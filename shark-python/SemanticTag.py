@@ -1,21 +1,24 @@
+"""This class and its derivations are the Python implementations of the ASIP structures
+The classes are implemented according to the the asip-iot.md
+A SemanticTag represents the topic or the type of a piece of information"""
 class SemanticTag(object):
-	name = None
-	si = []
-	id = None
+	name = None # the simple name
+	si = [] #the subject identifiers
+	id = None #the unique id
 	def __init__(self, name, si):
 		if name:
 			self.name = name
 		if type(si) is list:
 			self.si = si
 		else:
-			self.si = [si]
+			self.si = [si] #The si attribute should always be a list, even if there is only one SI
 
 	def __str__(self):
 		return " [Name]: %s  [Si]: %s" %(self.name, self.si)
 
-	def __eq__(self, other):
+	def __eq__(self, other): #ovewrwrites the check for equality of this class
 		for identifier in self.si:
-			if (identifier in other.si):
+			if (identifier in other.si): #at least one subject identifier has to be equal to the other si
 				return True
 		return False
 

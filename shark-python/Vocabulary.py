@@ -2,13 +2,14 @@ from SemanticNet import *
 from PeerSemanticNet import *
 from TimeSemanticNet import *
 from SpatialSemanticNet import *
-
+"""The vocaulary contains every Tag that the executing machine has inside its KnowledgeBase. 
+The Tags are stored in their respective SemanticNets"""
 class Vocabulary:
-    topic_dim = None
-    type_dim = None
-    peer_dim = None
-    location_dim = None
-    time_dim = None
+    topic_dim = None #A SemanticNet with SemanticTags and PredicateSemanticTags
+    type_dim = None #A SemanticNet with SemanticTags and PredicateSemanticTags
+    peer_dim = None #A PeerSemantic Net with PeerSemanticTags and PredicateSemanticTags
+    location_dim = None #A SpatialSemantic Net with SpatialSemanticTags and PredicateSemanticTags
+    time_dim = None #A TimeSemantic Net with TimeSemanticTags and PredicateSemanticTags
 
     def __init__(self):
         pass

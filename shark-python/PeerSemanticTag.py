@@ -1,7 +1,7 @@
 from SemanticTag import *
-
+"""A SpatialSemanticTag represents a person or a device, which is relevant to the piece of information"""
 class PeerSemanticTag(SemanticTag):
-    address = None
+    address = None #The address of the Peer has to be an object of type Address
     def __init__(self, name, si, address):
         SemanticTag.__init__(self, name, si)
         if isinstance(address, Address) :
@@ -13,7 +13,7 @@ class PeerSemanticTag(SemanticTag):
         return " [Name]: %s  [Si]: %s  [address]: %s" %(self.name, self.si, self.address)
 
 
-class Address:
+class Address: #A valid address of the peer can be a tcp IP, an email or a http internet address
     tcp = False
     email = False
     http= False
@@ -34,17 +34,3 @@ class Address:
 
     def __str__(self):
         return "%s" %(self.endpoint)
-
-
-
-
-def main():
-    address = Address("mail://s0540042@htw-berlin.de")
-    print(address)
-    tag = PeerSemanticTag("Dustin Feurich", "https://studi.f4.htw-berlin.de/~s0540042/", address)
-    print("Generated Tag: " + tag.__str__())
-
-
-
-
-if  __name__ =='__main__':main()

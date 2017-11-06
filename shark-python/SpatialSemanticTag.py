@@ -1,7 +1,7 @@
 from SemanticTag import *
-
+"""A SpatialSemanticTag represents a location in which a piece of information is relevant"""
 class SpatialSemanticTag(SemanticTag):
-    location = None
+    location = None #the relevant location
     def __init__(self, name, si, ewkt):
         SemanticTag.__init__(self, name, si)
         if ewkt is not None :
